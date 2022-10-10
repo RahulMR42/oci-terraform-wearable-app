@@ -1,4 +1,4 @@
-## Copyright © 2021, Oracle and/or its affiliates. 
+## Copyright (c) 2022, Oracle and/or its affiliates.
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 
 resource "random_id" "tag" {
@@ -9,7 +9,7 @@ resource "oci_identity_tag_namespace" "ArchitectureCenterTagNamespace" {
   provider       = oci.home_region
   compartment_id = var.compartment_ocid
   description    = "ArchitectureCenterTagNamespace"
-  name           = "ArchitectureCenter\\ci-cd-pipe-oci-devops-${random_id.tag.hex}"
+  name           = "ArchitectureCenter\\iotcloudworld-${random_id.tag.hex}"
 
   provisioner "local-exec" {
     command = "sleep 10"
@@ -24,7 +24,7 @@ resource "oci_identity_tag" "ArchitectureCenterTag" {
 
   validator {
     validator_type = "ENUM"
-    values         = ["release", "1.0.3"]
+    values         = ["release", "${var.release}"]
   }
 
   provisioner "local-exec" {
