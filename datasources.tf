@@ -35,6 +35,13 @@ resource "random_string" "deploy_id" {
   special = false
 }
 
+resource "random_string" "hmac_jwt_string" {
+  length  = 256
+  special = false
+}
+
+
+
 # Gets a list of supported images based on the shape, operating_system and operating_system_version provided
 data "oci_core_images" "node_pool_images" {
   compartment_id           = local.oke_compartment_id

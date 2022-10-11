@@ -28,14 +28,14 @@ resource "oci_kms_key" "vault_master_key" {
   protection_mode = "${var.vault_key_protection_mode}"
 }
 
-resource oci_vault_secret "hmac_key_secret" { #256 string
+resource oci_vault_secret "hmac_key_secret_jwt" { #256 string
   compartment_id = var.compartment_ocid
   key_id = oci_kms_key.vault_master_key.id
   secret_content {
     content_type = "BASE64"
-    content = base64encode(random_string.deploy_id.result)
+    content = base64encode(random_string.hmac_jwt_string.result)
   }
-  secret_name    = "HMAC_KEY_SECRET_OCID"
+  secret_name    = "HMAC_KEY_SECRET"
   vault_id       = oci_kms_vault.vault.id
 }
 

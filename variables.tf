@@ -228,6 +228,14 @@ variable "smtp_from_user_mail" {
 }
 
 /********** Devops Variables **********/
+variable "container_repository_is_public" {
+  default = true
+}
+
+variable "deploy_artifact_argument_substitution_mode" {
+  default = "SUBSTITUTE_PLACEHOLDERS"
+}
+
 variable "project_logging_config_retention_period_in_days" {
   default = 30
 }
@@ -236,14 +244,6 @@ variable "project_description" {
   default = "DevOps CI/CD Sample Project for IOT Wearable app"
 }
 
-#variable "build_pipeline_description" {
-#  default = "build pipeline for python application with canary deployment strategies"
-#}
-#
-#variable "build_pipeline_display_name" {
-#  default = "oci_devops_canary-build-pipeline"
-#}
-#
 variable "repository_name" {
   default = "java-oci-wearable"
 }
@@ -274,93 +274,68 @@ locals {
   ocir_namespace = lookup(data.oci_objectstorage_namespace.ns, "namespace")
 }
 
-##variable "ocir_region" {
-## default = "iad"}
-#
-#variable "deploy_artifact_deploy_artifact_source_deploy_artifact_source_type" {
-#  default = "OCIR"
-#}
-#
-#variable "deploy_artifact_deploy_artifact_type" {
-#  default = "DOCKER_IMAGE"
-#}
-#
 variable "repository_repository_type" {
   default = "HOSTED"
 }
-#
-#variable "deploy_artifact_type" {
-#  default = "KUBERNETES_MANIFEST"
-#}
-#
-#variable "deploy_pipeline_description" {
-#  default = "Devops CI/CD Pipleline demo for OKE"
-#}
-#
-#variable "deploy_artifact_source_type" {
-#  default = "INLINE"
-#}
-#
-#variable "deploy_pipeline_deploy_pipeline_parameters_items_default_value" {
-#  default = "example"
-#}
-#
-#variable "deploy_pipeline_deploy_pipeline_parameters_items_description" {
-#  default = "exampleapp"
-#}
-#
-#variable "deploy_pipeline_deploy_pipeline_parameters_items_name" {
-#  default = "namespace"
-#}
-#
-#variable "deploy_stage_deploy_stage_type" {
-#  default = "OKE_DEPLOYMENT"
-#}
-#
-#variable "deploy_stage_description" {
-#  default = "ci/cd deployment to OKE"
-#}
-#
-#variable "execute_deployment" {
-#  default = true
-#}
-#
-#variable "build_pipeline_stage_is_pass_all_parameters_enabled" {
-#  default = true
-#}
-#
-#variable "deploy_stage_canary_ingress_name" {
-#  default = "sample-oke-canary-app-ing"
-#}
-#
-#variable "deploy_stage_canary_namespace" {
-#  default = "nscanarystage"
-#}
-#
-#variable "percentage_canary_shift" {
-#  default = 25
-#}
-#
-#variable "canary_prod_release_count_of_approval" {
-#  default = 1
-#}
-#
-#variable "canary_stage_shift_description" {
-#  default = "switch the traffic between OKE environment"
-#}
-#
-#variable "canary_stage_shift_name" {
-#  default = "canary_oke_traffic_shift"
-#}
-#
-#variable "deploy_stage_prd_namespace" {
-#  default = "nscanaryprd"
-#}
-#
-#variable "deploy_rollback_policy" {
-#  default = "AUTOMATED_STAGE_ROLLBACK_POLICY"
-#}
-#
-#variable "ingress_version" {
-#  default = "v1.1.2"
-#}
+
+variable "build_pipeline_stage_build_pipeline_stage_type" {
+  default = "BUILD"
+}
+
+variable "build_pipeline_stage_build_source_collection_items_connection_type" {
+  default = "DEVOPS_CODE_REPOSITORY"
+}
+
+variable "build_pipeline_stage_build_source_collection_items_branch" {
+  default = "main"
+}
+
+variable "build_pipeline_stage_build_source_collection_items_name" {
+  default = "source"
+}
+variable "notification_buildspec" {
+  default = "/notification-service/build_spec.yaml"
+}
+variable "tcpserver_buildspec" {
+  default = "/tcp-server/build_spec.yaml"
+}
+variable "adminapi_buildspec" {
+  default = "/admin-api/build_spec.yaml"
+}
+variable "build_pipeline_stage_display_name" {
+  default = "Managed Build of Application"
+}
+variable "build_pipeline_stage_image" {
+  default = "OL7_X86_64_STANDARD_10"
+}
+variable "build_pipeline_stage_wait_criteria_wait_duration" {
+  default = "waitDuration"
+}
+
+variable "build_pipeline_stage_wait_criteria_wait_type" {
+  default = "ABSOLUTE_WAIT"
+}
+
+variable "build_pipeline_stage_stage_execution_timeout_in_seconds" {
+  default = 36000
+}
+
+variable "build_pipeline_stage_deliver_artifact_stage_type" {
+  default = "DELIVER_ARTIFACT"
+}
+
+variable "deliver_artifact_stage_display_name" {
+  default = "Deliver Artifacts"
+}
+
+variable "build_pipeline_stage_deploy_stage_type" {
+  default = "TRIGGER_DEPLOYMENT_PIPELINE"
+}
+
+variable "deploy_stage_display_name" {
+  default = "Invoke Deployment"
+}
+
+variable "build_pipeline_stage_is_pass_all_parameters_enabled" {
+  default = true
+}
