@@ -50,6 +50,8 @@ Resources covered
   - ✅ Flow Config
   - ✅ Flow logs
 - Data flow
-- Vault 
+- ✅ Vault
+  - ✅ Secrets 
 - Bastion 
+- ✅ Stream
 - ⭕ Queue 

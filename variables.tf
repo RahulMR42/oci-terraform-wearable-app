@@ -172,6 +172,61 @@ variable "bucket_versioning" {
 }
 /********** Objectstorage Variables **********/
 
+/********** Vault Variables **********/
+
+variable "vault_vault_type" {
+  default = "DEFAULT"
+}
+
+variable "vault_key_shape_algorithm" {
+  default = "AES"
+}
+
+variable "key_key_shape_length" {
+  default = 32
+}
+
+variable "vault_key_protection_mode" {
+  default = "HSM"
+}
+
+variable "vault_app_env_user" {
+  default = "root"
+}
+
+/********** Vault Variables **********/
+
+/********** Stream Variables **********/
+variable "stream_partition_count" {
+  default = 1 #10
+}
+
+variable "stream_retention_in_hours" {
+  default = 24
+}
+/********** Stream Variables **********/
+
+/********** Queue Variables **********/
+variable "oci_queue_ocid" {
+  default = ""
+}
+/********** Queue Variables **********/
+
+/********** SMTP Variables **********/
+variable "smtp_from_address" {
+  default = "test@test.coom"
+}
+
+variable "auth_profile" {
+  default = "InstancePrincipal"
+}
+
+/********** SMTP Variables **********/
+
+variable "smtp_from_user_mail" {
+
+}
+
 /********** Devops Variables **********/
 variable "project_logging_config_retention_period_in_days" {
   default = 30
@@ -209,106 +264,9 @@ variable "git_repo_name" {
   default = "oci-wearable-demo"
 }
 
-#variable "build_pipeline_stage_build_pipeline_stage_predecessor_collection_items_id" {
-#  default = "id"
-#}
-#
-#variable "build_pipeline_stage_build_pipeline_stage_type" {
-#  default = "BUILD"
-#}
-#
-#variable "build_pipeline_stage_deliver_artifact_stage_type" {
-#  default = "DELIVER_ARTIFACT"
-#}
-#
-#variable "build_pipeline_stage_deploy_stage_type" {
-#  default = "TRIGGER_DEPLOYMENT_PIPELINE"
-#}
-#
-#variable "build_pipeline_stage_build_source_collection_items_branch" {
-#  default = "main"
-#}
-#
-#variable "build_pipeline_stage_build_source_collection_items_connection_type" {
-#  default = "DEVOPS_CODE_REPOSITORY"
-#}
-#
-#variable "build_pipeline_stage_build_source_collection_items_name" {
-#  default = "deploy_canary_oke"
-#}
-#
-#variable "build_pipeline_stage_build_spec_file" {
-#  default = ""
-#}
-#
-#variable "build_pipeline_stage_deliver_artifact_collection_items_artifact_name" {
-#  default = "oke_app_base"
-#}
-#
-#variable "build_pipeline_stage_display_name" {
-#  default = "oci_devops_canary-build-pipeline"
-#}
-#
-#variable "approval_stage_description" {
-#  default = "Approval to deploy to production"
-#}
-#
-#variable "approval_display_name" {
-#  default = "approval_to_deploy_to_production"
-#}
-#
-#variable "release_to_production_stage_description" {
-#  default = "Final version from production"
-#}
-#
-#variable "release_to_production_stage_display_name" {
-#  default = "Production Release"
-#}
-#
-#variable "deliver_artifact_stage_display_name" {
-#  default = "deliver-artifact"
-#}
-#
-#variable "deploy_stage_display_name" {
-#  default = "deploy-to-oke"
-#}
-#
-#variable "build_pipeline_stage_image" {
-#  default = "OL7_X86_64_STANDARD_10"
-#}
-#
-#variable "build_pipeline_stage_wait_criteria_wait_duration" {
-#  default = "waitDuration"
-#}
-#
-#variable "build_pipeline_stage_wait_criteria_wait_type" {
-#  default = "ABSOLUTE_WAIT"
-#}
-#
-#variable "build_pipeline_stage_stage_execution_timeout_in_seconds" {
-#  default = 36000
-#}
-#
-#/*
-#variable "registry_display_name" {
-#  default = "node-express-getting-starter"
-#}
-#*/
-#
-#variable "container_repository_is_public" {
-#  default = true
-#}
-#
-#variable "deploy_artifact_argument_substitution_mode" {
-#  default = "SUBSTITUTE_PLACEHOLDERS"
-#}
-#
-#/*
-#variable "deploy_artifact_display_name" {
-#  default = "node-express-getting-starter"
-#}
-#*/
-#
+variable "buildparam_baseimage_notificationservice" {
+  default = "adoptopenjdk/openjdk8"
+}
 locals {
   ocir_docker_repository = join("", [lower(lookup(data.oci_identity_regions.current_region.regions[0], "key")), ".ocir.io"])
   #ocir_docker_repository = join("", [lower(lookup(data.oci_identity_regions.home_region.regions[0], "key")), ".ocir.io"])
