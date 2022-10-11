@@ -50,6 +50,29 @@ resource "null_resource" "clonefromgithub" {
   }
 }
 
+resource "null_resource" "update_placeholders" {
+  provisioner "local-exec" {
+    environment = {
+      DATA_SOURCE_URL_OCID_VALUE = oci_vault_secret.db_source_env_url.id
+      DATA_SOURCE_USER_OCID_VALUE = oci_vault_secret.db_source_env_user.id
+      DATA_SOURCE_PASS_OCID_VALUE = oci_vault_secret.db_source_env_password.id
+      HMAC_KEY_SECRET_OCID_VALUE = oci_vault_secret.hmac_key_secret_jwt.id
+      VAULT_OCID = oci_kms_vault.vault.id
+      REGION_ID = var.region
+    }
+    command = <<-EOT
+      cat ${var.git_repo_name}/admin-api/func.yaml|envsubst > ${var.git_repo_name}/admin-api/func.yaml.tmp
+      mv ${var.git_repo_name}/admin-api/func.yaml.tmp ${var.git_repo_name}/admin-api/func.yaml
+      cat ${var.git_repo_name}/admin-api-authorizer/func.yaml|envsubst >${var.git_repo_name}/admin-api-authorizer/func.yaml.tmp
+      mv ${var.git_repo_name}/admin-api-authorizer/func.yaml.tmp ${var.git_repo_name}/admin-api-authorizer/func.yaml
+      cat ${var.git_repo_name}/external-secret-manifest/es-manifest.yaml|envsubst>${var.git_repo_name}/external-secret-manifest/es-manifest.yaml.tmp
+      mv ${var.git_repo_name}/external-secret-manifest/es-manifest.yaml.tmp ${var.git_repo_name}/external-secret-manifest/es-manifest.yaml
+    EOT
+
+  }
+}
+
+
 resource "null_resource" "copyfiles" {
 
   depends_on = [null_resource.clonerepo]
