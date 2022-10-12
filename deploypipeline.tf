@@ -70,6 +70,14 @@ resource "oci_devops_deploy_pipeline" "deploy_pipeline_adminapi" {
   defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
 }
 
+resource "oci_devops_deploy_pipeline" "deploy_pipeline_adminapi_authorizer" {
+  project_id   = oci_devops_project.test_project.id
+  description  = "Deploy pipeline for adminapi authorizer service"
+  display_name = "${var.app_name}_adminapi_authorizer_deploypipeline"
+
+  defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+}
+
 resource "oci_devops_deploy_pipeline" "deploy_pipeline_tcpserver" {
   project_id   = oci_devops_project.test_project.id
   description  = "Deploy pipeline for tcpserver service"

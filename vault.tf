@@ -46,7 +46,7 @@ resource oci_vault_secret "db_password" {
     content_type = "BASE64"
     content = base64encode(var.mysql_db_system_admin_password)
   }
-  secret_name    = "DB_PSWD"
+  secret_name    = "APP_DB_PSWD"
   vault_id       = oci_kms_vault.vault.id
 }
 
@@ -58,7 +58,7 @@ resource oci_vault_secret "db_source_env_url" {
     content_type = "BASE64"
     content = base64encode("jdbc:mysql://${oci_mysql_mysql_db_system.mysql_db.ip_address}:${var.mysql_db_system_port}/health_app?useUnicode=yes&characterEncoding=UTF-8")
   }
-  secret_name    = "data_source_env_setUrl"
+  secret_name    = "APP_data_source_env_setUrl"
   vault_id       = oci_kms_vault.vault.id
 }
 
@@ -69,7 +69,7 @@ resource oci_vault_secret "db_source_env_user" {
     content_type = "BASE64"
     content = base64encode(var.vault_app_env_user)
   }
-  secret_name    = "data_source_env_setUser"
+  secret_name    = "APP_data_source_env_setUser"
   vault_id       = oci_kms_vault.vault.id
 }
 
@@ -80,7 +80,7 @@ resource oci_vault_secret "db_source_env_password" {
     content_type = "BASE64"
     content = base64encode(var.mysql_db_system_admin_password)
   }
-  secret_name    = "data_source_env_setPassword"
+  secret_name    = "APP_data_source_env_setPassword"
   vault_id       = oci_kms_vault.vault.id
 }
 

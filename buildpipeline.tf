@@ -18,6 +18,15 @@ resource "oci_devops_build_pipeline" "build_pipeline_notification" {
 }
 
 
+resource "oci_devops_build_pipeline" "build_pipeline_adminapi_authorizer" {
+
+  #Required
+  project_id = oci_devops_project.test_project.id
+
+  description  = "Build pipeline for adminapi authorizer service"
+  display_name = "${var.app_name}_adminapi_authorizer_buildpipeline"
+}
+
 resource "oci_devops_build_pipeline" "build_pipeline_adminapi" {
 
   #Required

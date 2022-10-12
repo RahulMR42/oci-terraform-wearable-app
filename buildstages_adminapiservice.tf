@@ -2,6 +2,7 @@
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 
 resource "oci_devops_build_pipeline_stage" "adminapi_build_pipeline_stage" {
+  depends_on = [null_resource.pushcode]
   #Required
   build_pipeline_id = oci_devops_build_pipeline.build_pipeline_adminapi.id
   build_pipeline_stage_predecessor_collection {

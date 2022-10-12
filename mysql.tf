@@ -1,5 +1,6 @@
 # Copyright (c) 2022 Oracle and/or its affiliates.
 # All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
+
 # mysql.tf
 #
 # Purpose: TThe following script defines MySQL artifact creation
@@ -42,9 +43,11 @@ resource "oci_mysql_mysql_db_system" "mysql_db" {
 #  port_x = var.mysql_db_system_port_x
 }
 
-#resource "oci_mysql_heat_wave_cluster" "HeatWave" {
-#  count        = var.mysql_heatwave_enabled ? 1 : 0
-#  db_system_id = oci_mysql_mysql_db_system.DBSystem.id
-#  cluster_size = var.mysql_heatwave_cluster_size
-#  shape_name   = var.mysql_heatwave_shape
+#resource "null_resource" "mysql_setup" {
+#  depends_on = [oci_mysql_mysql_db_system.mysql_db]
+#  provisioner "local-exec" {
+#      command    = <<-EOT
+#      mysql -h ${oci_mysql_mysql_db_system.mysql_db.ip_address} -P ${oci_mysql_mysql_db_system.mysql_db.port} -u ${var.mysql_db_system_admin_username} -p ${var.mysql_db_system_admin_password} <${path.module}/${var.git_repo_name}/DB-Setup/setup.sql
+#  EOT
+#  }
 #}
