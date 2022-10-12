@@ -60,4 +60,5 @@ Resources covered
 - ✅ Bastion 
 - ✅ Stream
 - ✅ RMS 
+- Deploy IMAGE URL Replace.
 - ⭕ Queue 
