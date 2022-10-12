@@ -32,6 +32,10 @@ variable "gateway_visibility" {
   default = "PUBLIC"
 }
 
+variable "path_prefix" {
+  default = "/admin-api"
+}
+
 /********** API Gateway Variables **********/
 
 /********** VCN Variables **********/

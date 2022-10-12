@@ -59,4 +59,5 @@ Resources covered
   - ✅ Secrets 
 - ✅ Bastion 
 - ✅ Stream
+- ✅ RMS 
 - ⭕ Queue 

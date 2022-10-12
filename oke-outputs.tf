@@ -12,8 +12,8 @@ output "generated_private_key_pem" {
 output "dev" {
   value = "Made with \u2764 by Oracle Developers"
 }
-output "comments" {
-  value = "The application URL will be unavailable for a few minutes after provisioning while the application is configured and deployed to Kubernetes"
+output "admin_api_endpoint" {
+  value = "https://${oci_apigateway_gateway.api_gateway.hostname}${var.path_prefix}"
 }
 output "deploy_id" {
   value = random_string.deploy_id.result

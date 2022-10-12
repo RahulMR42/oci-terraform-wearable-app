@@ -28,7 +28,7 @@ resource "oci_apigateway_deployment" "admin_api_deployment" {
   display_name   = "iot-admin-api"
   freeform_tags  = {}
   gateway_id     = oci_apigateway_gateway.api_gateway.id
-  path_prefix    = "/admin-api"
+  path_prefix    = var.path_prefix
 
   specification {
     logging_policies {
