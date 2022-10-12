@@ -32,6 +32,15 @@ resource "oci_artifacts_container_repository" "container_repository_adminapi" {
 
 }
 
+resource "oci_artifacts_container_repository" "container_repository_adminapi_authorizer" {
+  #Required
+  compartment_id = var.compartment_ocid
+  display_name   = "${lower(var.app_name)}_adminapi_authorizer_${random_id.tag.hex}"
+  #Optional
+  is_public = var.container_repository_is_public
+
+}
+
 resource "oci_artifacts_container_repository" "container_repository_tcpserver" {
   #Required
   compartment_id = var.compartment_ocid
@@ -100,6 +109,27 @@ resource "oci_devops_deploy_artifact" "adminapi_service_image" {
 
   #Optional
   display_name = "admin-api-image"
+}
+
+resource "oci_devops_deploy_artifact" "adminapi_authorizer_service_image" {
+
+  #Required
+  argument_substitution_mode = var.deploy_artifact_argument_substitution_mode
+  deploy_artifact_source {
+    #Required
+    deploy_artifact_source_type = "OCIR"
+
+    #Optional
+    image_uri     = "${local.ocir_docker_repository}/${local.ocir_namespace}/${oci_artifacts_container_repository.container_repository_adminapi_authorizer.display_name}:$${BUILDRUN_HASH}"
+    image_digest  = " "
+
+  }
+
+  deploy_artifact_type = "DOCKER_IMAGE"
+  project_id           = oci_devops_project.test_project.id
+
+  #Optional
+  display_name = "admin-api-authorizer-image"
 }
 
 resource "oci_devops_deploy_artifact" "tcpserver_service_manifest" {

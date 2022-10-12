@@ -64,6 +64,33 @@ resource "oci_core_security_list" "sl" {
       min = 80
     }
   }
+
+      ingress_security_rules {
+        protocol = "6"
+        source   = "10.100.0.0/16"
+
+        tcp_options {
+          max = 3306
+          min = 3306
+        }
+      }
+        ingress_security_rules {
+          protocol = "6"
+          source   = "10.0.0.0/16"
+
+          tcp_options {
+            max = 3306
+            min = 3306
+          }
+        }
+
+        ingress_security_rules {
+          protocol = "1"
+          source   = "10.0.0.0/16"
+
+        }
+
+
   defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
 }
 

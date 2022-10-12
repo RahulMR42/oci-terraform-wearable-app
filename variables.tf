@@ -302,6 +302,10 @@ variable "tcpserver_buildspec" {
 variable "adminapi_buildspec" {
   default = "/admin-api/build_spec.yaml"
 }
+
+variable "adminapi_authorizer_buildspec" {
+  default = "/admin-api-authorizer/build_spec.yaml"
+}
 variable "build_pipeline_stage_display_name" {
   default = "Managed Build of Application"
 }
@@ -338,4 +342,14 @@ variable "deploy_stage_display_name" {
 
 variable "build_pipeline_stage_is_pass_all_parameters_enabled" {
   default = true
+}
+variable "oke_deploy_rollback_policy" {
+  default = "AUTOMATED_STAGE_ROLLBACK_POLICY"
+}
+variable "oke_namespace" {
+  default = "svc"
+}
+
+variable "oke_externalsecret_operator_url" {
+  default = "https://charts.external-secrets.io"
 }

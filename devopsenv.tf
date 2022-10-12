@@ -13,11 +13,22 @@ resource "oci_devops_deploy_environment" "oke_environment" {
 
 #Function Envs
 
-resource "oci_devops_deploy_environment" "function_environment" {
-  display_name            = "${var.app_name}_fn_env"
-  description             = "function based environment"
+resource "oci_devops_deploy_environment" "function_environment_adminapi" {
+  depends_on = [oci_functions_function.admin_api]
+  display_name            = "${var.app_name}_fn_adminapi_env"
+  description             = "function based environment for adminapi"
   deploy_environment_type = "FUNCTION"
   project_id              = oci_devops_project.test_project.id
   function_id             = oci_functions_function.admin_api.id
+  defined_tags            = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+}
+
+resource "oci_devops_deploy_environment" "function_environment_adminapi_authorizer" {
+  depends_on = [oci_functions_function.admin_api_authorizer]
+  display_name            = "${var.app_name}_fn_adminapi_auth_env"
+  description             = "function based environment for adminapi authorizer"
+  deploy_environment_type = "FUNCTION"
+  project_id              = oci_devops_project.test_project.id
+  function_id             = oci_functions_function.admin_api_authorizer.id
   defined_tags            = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
 }

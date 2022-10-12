@@ -51,6 +51,19 @@ resource "null_resource" "clonefromgithub" {
 }
 
 resource "null_resource" "update_placeholders" {
+  depends_on = [null_resource.clonefromgithub,
+    null_resource.clonerepo,
+    oci_kms_vault.vault,
+    oci_kms_key.vault_master_key,
+    oci_vault_secret.auth-token,
+    oci_vault_secret.db_password,
+    oci_vault_secret.db_source_env_password,
+    oci_vault_secret.db_source_env_url,
+    oci_vault_secret.db_source_env_user,
+    oci_vault_secret.hmac_key_secret_jwt,
+    oci_vault_secret.smtp_password,
+    oci_artifacts_container_repository.container_repository_notification,
+    oci_artifacts_container_repository.container_repository_tcpserver]
   provisioner "local-exec" {
     environment = {
       DATA_SOURCE_URL_OCID_VALUE = oci_vault_secret.db_source_env_url.id
@@ -75,7 +88,7 @@ resource "null_resource" "update_placeholders" {
 
 resource "null_resource" "copyfiles" {
 
-  depends_on = [null_resource.clonerepo]
+  depends_on = [null_resource.update_placeholders]
 
   provisioner "local-exec" {
     command = "rm -rf ${var.git_repo_name}/.git; cp -pr ${var.git_repo_name}/* ${oci_devops_repository.test_repository.name}/; cd .."
@@ -88,7 +101,19 @@ resource "null_resource" "pushcode" {
   depends_on = [null_resource.copyfiles]
 
   provisioner "local-exec" {
-    command = "cd ./${oci_devops_repository.test_repository.name}; git config --global user.email 'test@example.com'; git config --global user.name '${var.oci_user_name}';git add .; git commit -m 'added latest files'; git push origin '${var.repository_default_branch}'"
+    command = <<-EOT
+      cd ./${oci_devops_repository.test_repository.name}
+      git_global_username=`git config --global user.name`
+      git_global_mail=`git config --global user.email`
+      git config --global user.email test@example.com
+      git config --global user.name ${var.oci_user_name}
+      git add .; git commit -m 'added latest files'
+      git push origin ${var.repository_default_branch}
+      git config --global user.email ""
+      git config --global user.name ""
+
+    EOT
+
   }
 }
 

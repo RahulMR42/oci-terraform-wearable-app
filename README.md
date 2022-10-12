@@ -19,10 +19,10 @@ Resources covered
   - dataflow_dg
   - ✅ iot-health-app-devops-project-dg
 - ✅ Application
-- Function
+- ✅ Function
 - ✅ Gateway
 - ✅ MySQL
-- LBs
+- ✅ NLBs
 - ✅ Devops Project
 - Build pipeline
   - ✅ notification-service-build-pipeline
@@ -31,7 +31,7 @@ Resources covered
 - ✅ Deploy pipeline
 - ✅ Code repo
 - ✅ Stages  - Build 
-- Stages - Deploy
+- ✅ Stages - Deploy
 - Data flow 
 - ✅ Artifact Registry
 - ✅ Container Repo 
@@ -44,11 +44,10 @@ Resources covered
 - ✅ Devops Env
   - ✅ OKE
   - ✅ Function
-- Build Run
-  - ✅ Admin API
+- ✅ Build Run
 - My SQL Local EXEC
 - ✅ Stream
-- Kube Local Exec
+- ✅ Kube Local Exec
 - Cloud Guard 
 - ✅ Logging
 - ✅ Notification 
@@ -58,6 +57,6 @@ Resources covered
   - ✅ Flow logs
 - ✅ Vault
   - ✅ Secrets 
-- Bastion 
+- ✅ Bastion 
 - ✅ Stream
 - ⭕ Queue 
