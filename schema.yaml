@@ -105,6 +105,47 @@ variableGroups:
     - mysql_db_system_admin_password
     - oci_queue_ocid
 
+- title: "Encryption Settings"
+  description: Policy setting for the stack deployment
+  visible: true
+  variables:
+    - use_encryption_from_oci_vault
+    - create_new_encryption_key
+    - existent_encryption_key_id
+    - create_vault_policies_for_group
+    - user_admin_group_for_vault_policy
+- title: "OKE Cluster Configuration"
+  visible: true
+  variables:
+    - create_new_oke_cluster
+    - existent_oke_cluster_id
+    - create_new_compartment_for_oke
+    - oke_compartment_description
+    - cluster_options_add_ons_is_kubernetes_dashboard_enabled
+    - cluster_options_admission_controller_options_is_pod_security_policy_enabled
+    - cluster_workers_visibility
+    - cluster_endpoint_visibility
+    - k8s_version
+    - ingress_version
+
+- title: "OKE Worker Nodes Configuration"
+  visible: true
+  variables:
+    - generate_public_ssh_key
+    - public_ssh_key
+    - num_pool_workers
+    - node_pool_name
+    - node_pool_shape
+    - node_pool_node_shape_config_ocpus
+    - node_pool_node_shape_config_memory_in_gbs
+    - image_operating_system
+    - image_operating_system_version
+    - create_dynamic_group_for_nodes_in_compartment
+    - existent_dynamic_group_for_nodes_in_compartment
+    - create_compartment_policies
+    - create_tenancy_policies
+
+
 ######################
 # Variable Definitions
 ######################
