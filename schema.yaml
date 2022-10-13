@@ -94,6 +94,7 @@ variableGroups:
   - oke_namespace
   - oke_externalsecret_operator_url
   - metric_server_version
+  - smtp_user_ocid
 
 - title: "Required Configuration"
   visible: true  
@@ -104,6 +105,7 @@ variableGroups:
     - mysql_db_system_admin_username
     - mysql_db_system_admin_password
     - oci_queue_ocid
+    - smtp_user_ocid
 
 - title: "Encryption Settings"
   description: Policy setting for the stack deployment
@@ -167,6 +169,13 @@ variables:
     visibile: true
     title: "OCI user auth token"
     description: "You can get the auth token from your Profile menu -> click User Settings -> On left side  click *Auth Tokens -> Generate Token"
+
+  smtp_user_ocid:
+    type: string
+    required: true
+    visibile: true
+    title: "OCI user auth token"
+    description: "OCID of the SMTP USer"
 
   mysql_db_system_admin_username:
     type: string

@@ -3,9 +3,9 @@
 
 variable "tenancy_ocid" {}
 variable "compartment_ocid" {}
-#variable "user_ocid" {}
-#variable "fingerprint" {}
-#variable "private_key_path" {}
+variable "user_ocid" {}
+variable "fingerprint" {}
+variable "private_key_path" {}
 variable "region" {}
 
 variable "app_name" {
@@ -212,7 +212,7 @@ variable "stream_retention_in_hours" {
 
 /********** Queue Variables **********/
 variable "oci_queue_ocid" {
-  default = ""
+
 }
 /********** Queue Variables **********/
 
@@ -228,6 +228,9 @@ variable "email_domain_name" {
 
 variable "sender_email_address" {
   default = "oci-wearable-app@demo.com"
+}
+variable "smtp_user_ocid" {
+  description = "smtp user ocid"
 }
 /********** SMTP Variables **********/
 

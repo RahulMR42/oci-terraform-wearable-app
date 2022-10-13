@@ -6,7 +6,7 @@ resource "oci_identity_smtp_credential" "test_smtp_credential" {
   #Required
   provider = oci.home_region
   description = "SMTP Credentials for ${var.app_name}"
-  user_id = var.user_ocid
+  user_id = var.smtp_user_ocid
 }
 
 resource "oci_email_email_domain" "test_email_domain" {
