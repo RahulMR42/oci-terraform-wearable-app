@@ -272,7 +272,7 @@ variable "git_repo" {
 }
 
 variable "git_repo_name" {
-  default = "oci-wearable-demo"
+  default = "oci-wearable-health-app" #It must be same as that of actual github reponame.
 }
 
 variable "buildparam_baseimage_notificationservice" {
