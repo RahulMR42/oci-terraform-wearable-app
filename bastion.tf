@@ -5,7 +5,7 @@ resource "oci_bastion_bastion" "test_bastion" {
   #Required
   bastion_type = "standard"
   compartment_id = var.compartment_ocid
-  target_subnet_id = oci_core_subnet.application_private_subnet
+  target_subnet_id = oci_core_subnet.application_private_subnet.id
 
   #Optional
   client_cidr_block_allow_list = ["0.0.0.0"]
