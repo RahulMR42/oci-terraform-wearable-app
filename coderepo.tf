@@ -40,6 +40,7 @@ resource "null_resource" "clonerepo" {
 }
 
 resource "null_resource" "clonefromgithub" {
+  depends_on = [oci_devops_repository.test_repository]
 
   provisioner "local-exec" {
     command = "rm -rf ./${var.git_repo_name}"
