@@ -69,3 +69,4 @@ Note
 - Uncomment /mysql
 - Update es with password key
 - Update vault with password key
+- Update variables and branch

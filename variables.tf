@@ -264,7 +264,7 @@ variable "repository_description" {
 }
 
 variable "git_branch" {
-  default = "main"
+  default = "release/1.0.0"
 }
 
 variable "git_repo" {
