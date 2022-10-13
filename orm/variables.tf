@@ -212,7 +212,7 @@ variable "stream_retention_in_hours" {
 
 /********** Queue Variables **********/
 variable "oci_queue_ocid" {
-  default = ""
+
 }
 /********** Queue Variables **********/
 
@@ -228,6 +228,9 @@ variable "email_domain_name" {
 
 variable "sender_email_address" {
   default = "oci-wearable-app@demo.com"
+}
+variable "smtp_user_ocid" {
+  description = "smtp user ocid"
 }
 /********** SMTP Variables **********/
 
@@ -260,8 +263,12 @@ variable "repository_description" {
   default = "OCI Wearable APP Code base"
 }
 
+variable "git_branch" {
+  default = "main"
+}
+
 variable "git_repo" {
-  default = "https://github.com/karankap/oci-wearable-demo"
+  default = "https://github.com/oracle-devrel/oci-wearable-health-app"
 }
 
 variable "git_repo_name" {

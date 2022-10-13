@@ -3,9 +3,9 @@
 
 variable "tenancy_ocid" {}
 variable "compartment_ocid" {}
-#variable "user_ocid" {}
-#variable "fingerprint" {}
-#variable "private_key_path" {}
+variable "user_ocid" {}
+variable "fingerprint" {}
+variable "private_key_path" {}
 variable "region" {}
 
 variable "app_name" {
@@ -268,7 +268,7 @@ variable "git_branch" {
 }
 
 variable "git_repo" {
-  default = "https://github.com/karankap/oci-wearable-demo"
+  default = "https://github.com/oracle-devrel/oci-wearable-health-app"
 }
 
 variable "git_repo_name" {
