@@ -22,8 +22,6 @@ variableGroups:
   - private_key_path
   - region
   - app_name
-  - oci_user_name
-  - oci_user_authtoken
   - release
   - gateway_displayname
   - gateway_visibility
@@ -36,8 +34,6 @@ variableGroups:
   - mysql_network_compartment_name
   - mysql_instance_compartment_ocid
   - mysql_network_compartment_ocid
-  - mysql_db_system_admin_password
-  - mysql_db_system_admin_username
   - mysql_db_system_backup_policy_is_enabled
   - mysql_db_system_backup_policy_retention_in_days
   - mysql_db_system_backup_policy_window_start_time
@@ -62,7 +58,6 @@ variableGroups:
   - vault_app_env_user
   - stream_partition_count
   - stream_retention_in_hours
-  - oci_queue_ocid
   - auth_profile
   - email_domain_name
   - sender_email_address
@@ -110,3 +105,58 @@ variableGroups:
     - mysql_db_system_admin_password
     - oci_queue_ocid
 
+######################
+# Variable Definitions
+######################
+
+variables:
+
+  # Required
+
+  oci_user_name:
+    type: string
+    required: true
+    visibile: true
+    title: "OCI username"
+    description: "For a federated user (single sign-on with an identity provider), enter the username in the following format: TenancyName/Federation/UserName. For example, if you use OCI's identity provider, your login would be, Acme/oracleidentitycloudservice/alice.jones@acme.com. If you are using OCI's direct sign-in, enter the username in the following format: TenancyName/YourUserName. For example, Acme/alice_jones. Your password is the auth token you created previously."
+
+  oci_user_authtoken:
+    type: password
+    required: true
+    visibile: true
+    title: "OCI user auth token"
+    description: "You can get the auth token from your Profile menu -> click User Settings -> On left side  click *Auth Tokens -> Generate Token"
+
+  mysql_db_system_admin_username:
+    type: string
+    required: true
+    visibile: true
+    title: "DB Admin username"
+    description: "Admin username for DB MySQL"
+
+  mysql_db_system_admin_password:
+    type: password
+    required: true
+    visibile: true
+    title: "DB Admin password"
+    description: "Admin password for DB MySQL"
+
+  oci_queue_ocid:
+    type: string
+    required: true
+    visibile: true
+    title: "OCID of OCI Queue"
+    description: "Queue service is an LA offer ,contact your product manager"
+
+  show_advanced:
+    type: boolean
+    title: "Show advanced options?"
+    description: "Shows advanced options."
+    visible: true
+    default: false
+
+  compartment_id:
+    type: oci:identity:compartment:id
+    title: "Compartment"
+    description: "The compartment in which to create resources"
+    required: true
