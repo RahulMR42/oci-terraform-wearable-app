@@ -27,7 +27,7 @@ resource "oci_devops_deploy_pipeline" "deploy_pipeline_notification" {
 
     items {
       name          = "SMTP_USERNAME"
-      default_value = var.user_ocid
+      default_value = var.smtp_user_ocid
       description   = "OCID of SMTP User"
     }
     items {
