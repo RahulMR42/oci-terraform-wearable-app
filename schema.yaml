@@ -70,6 +70,7 @@ variableGroups:
   - repository_description
   - git_repo
   - git_repo_name
+  - git_branch
   - buildparam_baseimage_notificationservice
   - repository_repository_type
   - build_pipeline_stage_build_pipeline_stage_type

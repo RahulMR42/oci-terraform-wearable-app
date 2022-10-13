@@ -263,6 +263,10 @@ variable "repository_description" {
   default = "OCI Wearable APP Code base"
 }
 
+variable "git_branch" {
+  default = "main"
+}
+
 variable "git_repo" {
   default = "https://github.com/karankap/oci-wearable-demo"
 }
