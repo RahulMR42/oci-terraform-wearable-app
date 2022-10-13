@@ -217,19 +217,19 @@ variable "oci_queue_ocid" {
 /********** Queue Variables **********/
 
 /********** SMTP Variables **********/
-variable "smtp_from_address" {
-  default = "test@test.coom"
-}
 
 variable "auth_profile" {
   default = "InstancePrincipal"
 }
 
-/********** SMTP Variables **********/
-
-variable "smtp_from_user_mail" {
-
+variable "email_domain_name" {
+  default = "demo.com"
 }
+
+variable "sender_email_address" {
+  default = "oci-wearable-app@demo.com"
+}
+/********** SMTP Variables **********/
 
 /********** Devops Variables **********/
 variable "container_repository_is_public" {
@@ -356,4 +356,8 @@ variable "oke_namespace" {
 
 variable "oke_externalsecret_operator_url" {
   default = "https://charts.external-secrets.io"
+}
+
+variable "metric_server_version" {
+  default = "v0.6.1"
 }

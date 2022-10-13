@@ -10,12 +10,12 @@ resource "oci_devops_deploy_pipeline" "deploy_pipeline_notification" {
   deploy_pipeline_parameters {
     items {
       name          = "EMAIL_FROM_ADDRESS"
-      default_value = var.smtp_from_address
+      default_value = var.sender_email_address
       description   = "SMTP From address"
     }
     items {
       name          = "EMAIL_HOST"
-      default_value = "hostDummy"
+      default_value = "smtp.email.${var.region}.oci.oraclecloud.com"
       description   = "SMTP host address"
     }
 

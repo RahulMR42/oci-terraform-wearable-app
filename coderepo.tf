@@ -63,23 +63,43 @@ resource "null_resource" "update_placeholders" {
     oci_vault_secret.hmac_key_secret_jwt,
     oci_vault_secret.smtp_password,
     oci_artifacts_container_repository.container_repository_notification,
-    oci_artifacts_container_repository.container_repository_tcpserver]
+    oci_artifacts_container_repository.container_repository_tcpserver,
+    oci_devops_deploy_artifact.tcpserver_service_image]
   provisioner "local-exec" {
     environment = {
       DATA_SOURCE_URL_OCID_VALUE = oci_vault_secret.db_source_env_url.id
       DATA_SOURCE_USER_OCID_VALUE = oci_vault_secret.db_source_env_user.id
       DATA_SOURCE_PASS_OCID_VALUE = oci_vault_secret.db_source_env_password.id
       HMAC_KEY_SECRET_OCID_VALUE = oci_vault_secret.hmac_key_secret_jwt.id
+      NOTIFICATION_IMAGE_REPO_URL = "${local.ocir_docker_repository}/${local.ocir_namespace}/${oci_artifacts_container_repository.container_repository_notification.display_name}"
+      BUILDRUN_HASH = "$${BUILDRUN_HASH}"
+      DB_NAME = "$${DB_NAME}"
+      DB_HOST = "$${DB_HOST}"
+      STREAM_MESSAGING_ENDPOINT = "$${STREAM_MESSAGING_ENDPOINT}"
+      STREAM_OCID = "$${STREAM_OCID}"
+      AUTH_PROFILE = "$${AUTH_PROFILE}"
+      TCP_SERVER_PORT = "$${TCP_SERVER_PORT}"
+      QUEUE_OCID = "$${QUEUE_OCID}"
+      QUEUE_REGION_ID = "$${QUEUE_REGION_ID}"
+      SMTP_USERNAME = "$${SMTP_USERNAME}"
+      SMTP_PASSWORD_OCID = "$${SMTP_PASSWORD_OCID}"
+      EMAIL_HOST = "$${EMAIL_HOST}"
+      EMAIL_FROM_ADDRESS = "$${EMAIL_FROM_ADDRESS}"
+      TCPSERVER_IMAGE_REPO_URL = "${local.ocir_docker_repository}/${local.ocir_namespace}/${oci_artifacts_container_repository.container_repository_tcpserver.display_name}"
       VAULT_OCID = oci_kms_vault.vault.id
       REGION_ID = var.region
     }
     command = <<-EOT
-      cat ${var.git_repo_name}/admin-api/func.yaml|envsubst > ${var.git_repo_name}/admin-api/func.yaml.tmp
-      mv ${var.git_repo_name}/admin-api/func.yaml.tmp ${var.git_repo_name}/admin-api/func.yaml
-      cat ${var.git_repo_name}/admin-api-authorizer/func.yaml|envsubst >${var.git_repo_name}/admin-api-authorizer/func.yaml.tmp
-      mv ${var.git_repo_name}/admin-api-authorizer/func.yaml.tmp ${var.git_repo_name}/admin-api-authorizer/func.yaml
-      cat ${var.git_repo_name}/external-secret-manifest/es-manifest.yaml|envsubst>${var.git_repo_name}/external-secret-manifest/es-manifest.yaml.tmp
-      mv ${var.git_repo_name}/external-secret-manifest/es-manifest.yaml.tmp ${var.git_repo_name}/external-secret-manifest/es-manifest.yaml
+      cat ${path.module}/${var.git_repo_name}/admin-api/func.yaml|envsubst > ${path.module}/${var.git_repo_name}/admin-api/func.yaml.tmp
+      mv ${path.module}/${var.git_repo_name}/admin-api/func.yaml.tmp ${path.module}/${var.git_repo_name}/admin-api/func.yaml
+      cat ${path.module}/${var.git_repo_name}/admin-api-authorizer/func.yaml|envsubst >${path.module}/${var.git_repo_name}/admin-api-authorizer/func.yaml.tmp
+      mv ${path.module}/${var.git_repo_name}/admin-api-authorizer/func.yaml.tmp ${path.module}/${var.git_repo_name}/admin-api-authorizer/func.yaml
+      cat ${path.module}/${var.git_repo_name}/external-secret-manifest/es-manifest.yaml|envsubst>${path.module}/${var.git_repo_name}/external-secret-manifest/es-manifest.yaml.tmp
+      mv ${path.module}/${var.git_repo_name}/external-secret-manifest/es-manifest.yaml.tmp ${path.module}/${var.git_repo_name}/external-secret-manifest/es-manifest.yaml
+      cat ${path.module}/${var.git_repo_name}/notification-service/manifest/deployment.yaml|envsubst > ${path.module}/${var.git_repo_name}/notification-service/manifest/deployment.yaml.tmp
+      mv  ${path.module}/${var.git_repo_name}/notification-service/manifest/deployment.yaml.tmp ${path.module}/${var.git_repo_name}/notification-service/manifest/deployment.yaml
+      cat ${path.module}/${var.git_repo_name}/tcp-server/manifest/deployment.yaml|envsubst >${path.module}/${var.git_repo_name}/tcp-server/manifest/deployment.yaml.tmp
+      mv ${path.module}/${var.git_repo_name}/tcp-server/manifest/deployment.yaml.tmp ${path.module}/${var.git_repo_name}/tcp-server/manifest/deployment.yaml
     EOT
 
   }

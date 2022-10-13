@@ -45,7 +45,7 @@ Resources covered
   - ✅ OKE
   - ✅ Function
 - ✅ Build Run
-- My SQL Local EXEC
+- ✅ My SQL Local EXEC
 - ✅ Stream
 - ✅ Kube Local Exec
 - Cloud Guard 
@@ -62,3 +62,10 @@ Resources covered
 - ✅ RMS 
 - Deploy IMAGE URL Replace.
 - ⭕ Queue 
+
+Note 
+--
+- Uncomment /oke 
+- Uncomment /mysql
+- Update es with password key
+- Update vault with password key
