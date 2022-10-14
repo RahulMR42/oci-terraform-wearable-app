@@ -12,6 +12,6 @@ runcmd:
   - export OCI_CLI_AUTH=instance_principal
   - python3 -m pip install --user oci-cli
   - sleep 10
-  - ~/.local/bin/oci artifacts generic artifact download-by-path --repository-id ocid1.artifactrepository.oc1.us-sanjose-1.0.amaaaaaayat6pyaavrsadgpy3s5crpwog7xooockuyw6wrsoume4vvahqc4q --artifact-path script.sql --artifact-version 0.0 --file /tmp/script.sql
-  - mysql --password=Oci@123456! --user=admin --port=3306 --host=10.100.10.18 </tmp/script.sql
+  - ~/.local/bin/oci artifacts generic artifact download-by-path --repository-id ${ARTIFACT_REPO_OCID} --artifact-path ${ARTIFACT_REPO_OCID} --artifact-version ${ARTIFACT_VERSION} --file /tmp/script.sql
+  - mysql --password=${DB_PASSWORD} --user=${DB_USERNAME} --port=${DB_PORT} --host=${DB_SERVER} </tmp/script.sql
   - sleep 10

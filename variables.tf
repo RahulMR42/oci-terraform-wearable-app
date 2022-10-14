@@ -269,7 +269,7 @@ variable "artifact_name" {
   default = "script.sql"
 }
 variable "artifact_version" {
-  default = "0.0"
+  default = "0.0.0"
 }
 /********** Artifact repo Variables **********/
 

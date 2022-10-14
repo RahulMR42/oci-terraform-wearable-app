@@ -6,7 +6,7 @@
 resource "oci_artifacts_repository" "test_repository" {
   #Required
   compartment_id  = var.compartment_ocid
-  is_immutable    = true
+  is_immutable    = false
   display_name = "${var.app_name}_notification_service"
   repository_type = "GENERIC"
   defined_tags    = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
@@ -19,7 +19,7 @@ resource "oci_generic_artifacts_content_artifact_by_path" "upload_sql_artifact" 
   #Required
   artifact_path  = var.artifact_name
   repository_id    = oci_artifacts_repository.test_repository.id
-  version = random_id.tag.hex
+  version = var.artifact_version
   source = "${path.module}/${var.git_repo_name}/DB-Setup/setup.sql"
 }
 

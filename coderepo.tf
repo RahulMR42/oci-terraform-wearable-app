@@ -91,8 +91,8 @@ resource "null_resource" "update_placeholders" {
       VAULT_OCID = oci_kms_vault.vault.id
       REGION_ID = var.region
       ARTIFACT_REPO_OCID = oci_artifacts_repository.test_repository.id
-      ARTIFACT_NAME = var.artifact_name
-      ARTIFACT_VERSION = random_string.deploy_id.result
+      ARTIFACT_REPO_OCID = var.artifact_name
+      ARTIFACT_VERSION = var.artifact_version
       DB_PASSWORD = var.mysql_db_system_admin_password
       DB_USERNAME = var.mysql_db_system_admin_username
       DB_PORT = var.mysql_db_system_port
