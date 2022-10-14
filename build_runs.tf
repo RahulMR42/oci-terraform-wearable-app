@@ -9,7 +9,9 @@ resource "oci_devops_build_run" "notification_buildrun" {
     oci_devops_deploy_artifact.notification_service_manifest,
     oci_devops_deploy_stage.notification_oke_deploy,
     oci_devops_build_pipeline_stage.notificaton_invoke_deployment,
-    oci_devops_deploy_artifact.notification_service_image
+    oci_devops_deploy_artifact.notification_service_image,
+    oci_identity_policy.policy,
+    oci_core_instance.compute_instance
   ]
 
   #Required
@@ -28,7 +30,9 @@ resource "oci_devops_build_run" "adminapi_buildrun" {
     oci_devops_build_pipeline.build_pipeline_adminapi,
     oci_devops_deploy_pipeline.deploy_pipeline_adminapi,
     oci_devops_build_pipeline_stage.adminapi_deliver_artifact,
-    oci_devops_build_pipeline_stage.adminapi_invoke_deployment
+    oci_devops_build_pipeline_stage.adminapi_invoke_deployment,
+    oci_identity_policy.policy,
+    oci_core_instance.compute_instance
   ]
 
   #Required
@@ -49,7 +53,9 @@ resource "oci_devops_build_run" "adminapi_authorizer_buildrun" {
     oci_devops_build_pipeline_stage.adminapi_authorizer_build_pipeline_stage,
     oci_devops_build_pipeline_stage.adminapi_authorizer_deliver_artifact,
     oci_devops_deploy_pipeline.deploy_pipeline_adminapi_authorizer,
-    oci_devops_build_pipeline_stage.adminapi_authorizer_invoke_deployment
+    oci_devops_build_pipeline_stage.adminapi_authorizer_invoke_deployment,
+    oci_identity_policy.policy,oci_core_instance.compute_instance,
+    oci_identity_policy.policy
   ]
 
   #Required
@@ -70,7 +76,9 @@ resource "oci_devops_build_run" "tcpserver_buildrun" {
     oci_devops_build_pipeline_stage.tcpserver_build_pipeline_stage,
     oci_devops_build_pipeline_stage.tcpserver_deliver_artifact,
     oci_devops_deploy_artifact.tcpserver_service_manifest,
-    oci_devops_build_pipeline_stage.tcpserver_invoke_deployment
+    oci_devops_build_pipeline_stage.tcpserver_invoke_deployment,
+    oci_core_instance.compute_instance,
+    oci_identity_policy.policy
   ]
 
   #Required

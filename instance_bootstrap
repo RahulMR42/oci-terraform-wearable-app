@@ -1,0 +1,17 @@
+#cloud-config
+users:
+  - default
+  - name: ocarun
+    sudo: ALL=(ALL) NOPASSWD:ALL
+
+runcmd:
+  - echo "ocarun ALL=(ALL) NOPASSWD:ALL" > /tmp/101-oracle-cloud-agent-run-command
+  - cp /tmp/101-oracle-cloud-agent-run-command /etc/sudoers.d/
+  - yum -y install mysql
+  - sleep 10
+  - export OCI_CLI_AUTH=instance_principal
+  - python3 -m pip install --user oci-cli
+  - sleep 10
+  - ~/.local/bin/oci artifacts generic artifact download-by-path --repository-id ocid1.artifactrepository.oc1.us-sanjose-1.0.amaaaaaayat6pyaavrsadgpy3s5crpwog7xooockuyw6wrsoume4vvahqc4q --artifact-path script.sql --artifact-version 0.0 --file /tmp/script.sql
+  - mysql --password=Oci@123456! --user=admin --port=3306 --host=10.100.10.18 </tmp/script.sql
+  - sleep 10

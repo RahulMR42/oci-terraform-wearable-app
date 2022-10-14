@@ -8,8 +8,10 @@ oci-wearable-demo
 generated
 old-ref
 .pluralith
-
-
+.cloud-init
+oci-wearable-health-app
+instance_bootstrap
+instance_bootstrap*
 # Local .terraform directories
 **/.terraform/*
 

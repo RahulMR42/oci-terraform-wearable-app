@@ -86,9 +86,18 @@ resource "null_resource" "update_placeholders" {
       SMTP_PASSWORD_OCID = "$${SMTP_PASSWORD_OCID}"
       EMAIL_HOST = "$${EMAIL_HOST}"
       EMAIL_FROM_ADDRESS = "$${EMAIL_FROM_ADDRESS}"
+      PATH_VALUE = "$${PATH}"
       TCPSERVER_IMAGE_REPO_URL = "${local.ocir_docker_repository}/${local.ocir_namespace}/${oci_artifacts_container_repository.container_repository_tcpserver.display_name}"
       VAULT_OCID = oci_kms_vault.vault.id
       REGION_ID = var.region
+      ARTIFACT_REPO_OCID = oci_artifacts_repository.test_repository.id
+      ARTIFACT_NAME = var.artifact_name
+      ARTIFACT_VERSION = random_string.deploy_id.result
+      DB_PASSWORD = var.mysql_db_system_admin_password
+      DB_USERNAME = var.mysql_db_system_admin_username
+      DB_PORT = var.mysql_db_system_port
+      DB_SERVER = oci_mysql_mysql_db_system.mysql_db.ip_address
+
     }
     command = <<-EOT
       cat ${path.module}/${var.git_repo_name}/admin-api/func.yaml|envsubst > ${path.module}/${var.git_repo_name}/admin-api/func.yaml.tmp
@@ -101,6 +110,9 @@ resource "null_resource" "update_placeholders" {
       mv  ${path.module}/${var.git_repo_name}/notification-service/manifest/deployment.yaml.tmp ${path.module}/${var.git_repo_name}/notification-service/manifest/deployment.yaml
       cat ${path.module}/${var.git_repo_name}/tcp-server/manifest/deployment.yaml|envsubst >${path.module}/${var.git_repo_name}/tcp-server/manifest/deployment.yaml.tmp
       mv ${path.module}/${var.git_repo_name}/tcp-server/manifest/deployment.yaml.tmp ${path.module}/${var.git_repo_name}/tcp-server/manifest/deployment.yaml
+      cp ${path.module}/instance_bootstrap ${path.module}/instance_bootstrap_origin
+      cat ${path.module}/instance_bootstrap |envsubst >${path.module}/instance_bootstrap.tmp
+      mv ${path.module}/instance_bootstrap.tmp ${path.module}/instance_bootstrap
     EOT
 
   }

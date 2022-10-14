@@ -43,12 +43,12 @@ resource "oci_mysql_mysql_db_system" "mysql_db" {
 #  port_x = var.mysql_db_system_port_x
 }
 
-#MySQL Setup.
-resource "null_resource" "mysql_setup" {
-  depends_on = [oci_mysql_mysql_db_system.mysql_db,oci_resourcemanager_private_endpoint.rms_pe_mysql]
-  provisioner "local-exec" {
-      command    = <<-EOT
-      mysql --password=${var.mysql_db_system_admin_password} --user=${var.mysql_db_system_admin_username} --port ${oci_mysql_mysql_db_system.mysql_db.port} --host=${oci_mysql_mysql_db_system.mysql_db.ip_address} <${path.module}/${var.git_repo_name}/DB-Setup/setup.sql
-  EOT
-  }
-}
+##MySQL Setup.
+#resource "null_resource" "mysql_setup" {
+#  depends_on = [oci_mysql_mysql_db_system.mysql_db,oci_resourcemanager_private_endpoint.rms_pe_mysql]
+#  provisioner "local-exec" {
+#      command    = <<-EOT
+#      mysql --password=${var.mysql_db_system_admin_password} --user=${var.mysql_db_system_admin_username} --port ${oci_mysql_mysql_db_system.mysql_db.port} --host=${oci_mysql_mysql_db_system.mysql_db.ip_address} <${path.module}/${var.git_repo_name}/DB-Setup/setup.sql
+#  EOT
+#  }
+#}

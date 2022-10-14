@@ -51,3 +51,24 @@ resource "oci_devops_build_pipeline" "build_pipeline_tcpserver" {
     }
   }
 }
+
+resource "oci_devops_build_pipeline" "dataflow" {
+
+  #Required
+  project_id = oci_devops_project.test_project.id
+
+  description  = "Build pipeline for tcpserver service"
+  display_name = "${var.app_name}_dataflow_buildpipeline"
+  build_pipeline_parameters {
+    items {
+      name          = "NAMESPACE_NAME"
+      default_value = data.oci_objectstorage_namespace.ns.namespace
+      description   = "Bucket namespace"
+    }
+    items {
+      name          = "BUCKET_NAME"
+      default_value = oci_objectstorage_bucket.bucket_dataflow_configs.name
+      description   = "Bucket name"
+  }
+}
+}

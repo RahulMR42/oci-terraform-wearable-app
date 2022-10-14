@@ -9,7 +9,7 @@ resource "oci_identity_dynamic_group" "dg_instances" {
   name           = "${var.app_name}_instances_dg_${random_id.tag.hex}"
   description    = "Instances  pipeline dynamic group"
   compartment_id = var.tenancy_ocid
-  matching_rule  = "Any {ALL {resource.type = 'instance-family', resource.compartment.id = '${var.compartment_ocid}'},ALL {resource.type = 'fnfunc',resource.compartment.id = '${var.compartment_ocid}'}}"
+  matching_rule  = "Any {All {instance.compartment.id = '${var.compartment_ocid}'},ALL {resource.type = 'fnfunc',resource.compartment.id = '${var.compartment_ocid}'}}"
 }
 
 resource "oci_identity_dynamic_group" "dg_devops" {
@@ -31,6 +31,7 @@ resource "oci_identity_policy" "policy" {
   statements = [
     "Allow dynamic-group ${oci_identity_dynamic_group.dg_instances.name} to manage log-content in compartment id ${var.compartment_ocid}",
     "Allow dynamic-group ${oci_identity_dynamic_group.dg_instances.name} to manage secret-family in compartment id ${var.compartment_ocid}",
+    "Allow dynamic-group ${oci_identity_dynamic_group.dg_instances.name} to manage all-resources in compartment id ${var.compartment_ocid}",
     "Allow any-user to use fn-invocation in compartment id ${var.compartment_ocid} where ALL {request.principal.type='ApiGateway', request.resource.compartment.id='${var.compartment_ocid}'}",
     "Allow dynamic-group ${oci_identity_dynamic_group.dg_instances.name} to manage stream-family in compartment id ${var.compartment_ocid}",
     "Allow dynamic-group ${oci_identity_dynamic_group.dg_instances.name} to manage streampools in compartment id ${var.compartment_ocid}",

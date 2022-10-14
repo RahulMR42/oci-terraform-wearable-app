@@ -3,9 +3,9 @@
 
 variable "tenancy_ocid" {}
 variable "compartment_ocid" {}
-#variable "user_ocid" {}
-#variable "fingerprint" {}
-#variable "private_key_path" {}
+variable "user_ocid" {}
+variable "fingerprint" {}
+variable "private_key_path" {}
 variable "region" {}
 
 variable "app_name" {
@@ -200,6 +200,36 @@ variable "vault_app_env_user" {
 
 /********** Vault Variables **********/
 
+/********** Compute Variables **********/
+variable "compute_name" {
+  default = "bastion hosts"
+}
+variable "instance_shape" {
+  description = "Instance Shape"
+  default     = "VM.Standard.E4.Flex"
+}
+variable "instance_shape_ocpus" {
+  default = 1
+}
+
+variable "instance_shape_memory_in_gbs" {
+  default = 1
+}
+
+variable "instance_os" {
+  description = "Operating system for compute instances"
+  default     = "Oracle Linux"
+}
+
+variable "linux_os_version" {
+  description = "Operating system version for all Linux instances"
+  default     = "8"
+}
+variable "ssh_public_key" {
+  default = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCbm5o7Y0AsLJdSWhsWRiDiNQam/2MB5L5NX+glKna9UGl4yQ19jSlJgXalcpuKQ/FrCrlW6PQkDVl0U5FeKqRigMAgVj4nUlWASvERsIXXtjpWJ7f9Fc1THCwi0GPDIvdM9BQwWcSBTolsN/M/GjFMO7u4t6a7iA/LeEKxWPlJdGC+tKosZO1KJFykva4VKTdOmXNySXHEjltH9SsdC9Kdz/X4R7YfwUA2h2TPmJEX0ZIueu2SeaBj6A1YCAP1k/RqPX3QhPdGYQp99mSyIGkvNt4lKewRsGyC3JnaG4o7vyY87NXWAnvNAxUjILEFt17J3k6y8nEIIq5BiOVEEnHF rahul_m_r@0a81408776aa"
+}
+/********** Compute Variables **********/
+
 /********** Stream Variables **********/
 variable "stream_partition_count" {
   default = 1 #10
@@ -233,6 +263,15 @@ variable "smtp_user_ocid" {
   description = "smtp user ocid"
 }
 /********** SMTP Variables **********/
+
+/********** Artifact repo Variables **********/
+variable "artifact_name" {
+  default = "script.sql"
+}
+variable "artifact_version" {
+  default = "0.0"
+}
+/********** Artifact repo Variables **********/
 
 /********** Devops Variables **********/
 variable "container_repository_is_public" {
@@ -368,3 +407,4 @@ variable "oke_externalsecret_operator_url" {
 variable "metric_server_version" {
   default = "v0.6.1"
 }
+
