@@ -65,8 +65,12 @@ Resources covered
 
 Note 
 --
-- Uncomment /oke 
-- Uncomment /mysql
+
 - Update es with password key
 - Update vault with password key
 - Update variables and branch
+- Release file 
+- ORM File
+- Artifact version 
+- Cloud init script 
+- MySQL pipeline -With build and deploy 

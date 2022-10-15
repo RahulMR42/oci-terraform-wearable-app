@@ -19,6 +19,19 @@ resource "oci_core_internet_gateway" "ig" {
   defined_tags   = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
 }
 
+# Create service gateway for OCI service access
+resource "oci_core_service_gateway" "application_service_gateway" {
+  compartment_id = var.compartment_ocid
+  display_name   = "${var.app_name}_app_servicegateway"
+  vcn_id         = oci_core_virtual_network.vcn.id
+  services {
+    service_id = lookup(data.oci_core_services.all_services.services[0], "id")
+  }
+  defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+
+}
+
+
 # Create route table to connect vcn to internet gateway
 
 resource "oci_core_route_table" "rt" {
@@ -28,6 +41,21 @@ resource "oci_core_route_table" "rt" {
   route_rules {
     destination       = "0.0.0.0/0"
     network_entity_id = oci_core_internet_gateway.ig.id
+  }
+  defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+}
+
+# Create route table to connect vcn to service gateway ,for mysql private-endpoint connection.
+
+resource "oci_core_route_table" "private_rt" {
+  compartment_id = var.compartment_ocid
+  vcn_id         = oci_core_virtual_network.vcn.id
+  display_name   = "route-table-private"
+  route_rules {
+    description       = "Traffic to OCI services"
+    destination       = lookup(data.oci_core_services.all_services.services[0], "cidr_block")
+    destination_type  = "SERVICE_CIDR_BLOCK"
+    network_entity_id = oci_core_service_gateway.application_service_gateway.id
   }
   defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
 }
@@ -134,3 +162,4 @@ resource "oci_core_local_peering_gateway" "test_local_peering_gateway_2" {
   display_name = "Local peering to OKE VCN"
   defined_tags = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
 }
+

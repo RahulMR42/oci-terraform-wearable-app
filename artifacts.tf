@@ -12,16 +12,16 @@ resource "oci_artifacts_repository" "test_repository" {
   defined_tags    = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
 }
 
-# Upload artifact to repo
-
-resource "oci_generic_artifacts_content_artifact_by_path" "upload_sql_artifact" {
-  depends_on = [oci_artifacts_repository.test_repository,null_resource.update_placeholders,null_resource.pushcode]
-  #Required
-  artifact_path  = var.artifact_name
-  repository_id    = oci_artifacts_repository.test_repository.id
-  version = var.artifact_version
-  source = "${path.module}/${var.git_repo_name}/DB-Setup/setup.sql"
-}
+## Upload artifact to repo
+#
+#resource "oci_generic_artifacts_content_artifact_by_path" "upload_sql_artifact" {
+#  depends_on = [oci_artifacts_repository.test_repository,null_resource.update_placeholders,null_resource.pushcode]
+#  #Required
+#  artifact_path  = var.artifact_name
+#  repository_id    = oci_artifacts_repository.test_repository.id
+#  version = var.artifact_version
+#  source = "${path.module}/${var.git_repo_name}/DB-Setup/setup.sql"
+#}
 
 # Container repos
 

@@ -43,8 +43,10 @@ resource "oci_identity_policy" "policy" {
     "Allow dynamic-group ${oci_identity_dynamic_group.dg_devops.name} to manage cluster-family in compartment id ${var.compartment_ocid}",
     "Allow dynamic-group ${oci_identity_dynamic_group.dg_devops.name} to manage secret-family in compartment id ${var.compartment_ocid}",
     "Allow dynamic-group ${oci_identity_dynamic_group.dg_devops.name} to manage functions-family in compartment id ${var.compartment_ocid}",
-    "Allow group Administrators to manage orm-private-endpoints in compartment id ${var.compartment_ocid}",
-    "Allow group Administrators to use virtual-network-family in compartment id ${var.compartment_ocid}"
-
-  ]
+    "Allow dynamic-group ${oci_identity_dynamic_group.dg_devops.name} to use subnets in compartment id ${var.compartment_ocid}",
+    "Allow dynamic-group ${oci_identity_dynamic_group.dg_devops.name} to use vnics in compartment id ${var.compartment_ocid}",
+    "Allow dynamic-group ${oci_identity_dynamic_group.dg_devops.name} to use network-security-groups in compartment id ${var.compartment_ocid}",
+    "Allow dynamic-group ${oci_identity_dynamic_group.dg_devops.name} to use cabundles in compartment id ${var.compartment_ocid}",
+    "Allow dynamic-group ${oci_identity_dynamic_group.dg_devops.name} to use network-security-groups in compartment id ${var.compartment_ocid}"
+     ]
 }

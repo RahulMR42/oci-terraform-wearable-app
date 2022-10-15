@@ -356,6 +356,10 @@ variable "adminapi_buildspec" {
 variable "adminapi_authorizer_buildspec" {
   default = "/admin-api-authorizer/build_spec.yaml"
 }
+
+variable "dbsetup_buildspec" {
+  default = "/DB-Setup/build_spec.yaml"
+}
 variable "build_pipeline_stage_display_name" {
   default = "Managed Build of Application"
 }
