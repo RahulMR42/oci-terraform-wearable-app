@@ -1,7 +1,7 @@
 ## Copyright (c) 2022, Oracle and/or its affiliates.
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 resource "oci_dataflow_application" "core_application" {
-  depends_on = [oci_mysql_mysql_db_system.mysql_db]
+  depends_on = [oci_mysql_mysql_db_system.mysql_db,oci_identity_policy.policy]
   arguments          = [local.optional_arg_1]
   class_name         = var.dataflow_mainclass
   compartment_id     = var.compartment_ocid
