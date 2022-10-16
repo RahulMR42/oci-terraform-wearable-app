@@ -62,7 +62,7 @@ resource "oci_core_route_table" "application_private_route_table" {
 
 resource "oci_core_route_table" "application_public_route_table" {
   compartment_id = var.compartment_ocid
-  vcn_id         = oci_core_virtual_network.oke_vcn[0].id
+  vcn_id         = oci_core_virtual_network.vcn.id
   display_name   = "application-public-route-table-${random_string.deploy_id.result}"
 
   route_rules {

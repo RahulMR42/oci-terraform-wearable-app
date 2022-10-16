@@ -128,7 +128,7 @@ resource "oci_devops_build_run" "dataflow_buildrun" {
   #Optional
   display_name = "dataflow_build_run_${random_id.tag.hex}"
   provisioner "local-exec" {
-    command = "sleep 60"
+    command = "sleep 600"
   }
 
 }

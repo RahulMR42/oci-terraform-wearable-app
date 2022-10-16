@@ -15,6 +15,7 @@ steps:
   name: DB Setup
   command: |
     cd ${OCI_PRIMARY_SOURCE_DIR}/DB-Setup
+    yum install -y mysql
     mysql --password=${DB_PASSWORD_VALUE} --user=${DB_USERNAME} --port=${DB_PORT} --host=${DB_SERVER} <setup.sql
   onFailure:
   - type: Command
