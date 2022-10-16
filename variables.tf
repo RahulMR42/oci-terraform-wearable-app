@@ -52,6 +52,19 @@ variable "Private-Subnet-CIDR" {
   default = "10.100.10.0/24"
 }
 
+variable "application_network_cidrs" {
+  type = map(string)
+
+  default = {
+    VCN-CIDR                      = "10.100.0.0/16"
+    PRIVATE-SUBNET-CIDR           = "10.100.10.0/24"
+    PUBLIC-SUBNET-CIDR            = "10.100.0.0/24"
+    ALL-CIDR                      = "0.0.0.0/0"
+
+  }
+}
+
+
 /********** VCN Variables **********/
 
 
@@ -272,6 +285,54 @@ variable "artifact_version" {
   default = "0.0.0"
 }
 /********** Artifact repo Variables **********/
+/********** Dataflow  Variables **********/
+variable "dataflow_arguments" {
+  default = []
+}
+variable "dataflow_mainclass" {
+  default = "com.oracle.cloud.wearable.streaming.analytics.HealthEventAnalysis"
+}
+variable "dataflow_authmode" {
+  default = "resource_principal"
+}
+
+variable "dataflow_maxExecutors" {
+  default = "4"
+}
+ variable "dataflow_minExecutors" {
+   default = "2"
+ }
+variable "dataflow_driver_shape" {
+  default = "VM.Standard.E4.Flex"
+}
+variable "dataflow_executor_shape" {
+  default = "VM.Standard.E4.Flex"
+}
+variable "dataflow_num_executors" {
+  default = 2
+}
+variable "dataflow_spark_version" {
+  default = "3.2.1"
+}
+variable "dataflow_type" {
+  default = "STREAMING"
+}
+
+variable "dataflow_driver_shape_config_memory_in_gbs" {
+  default = 64
+}
+variable "dataflow_driver_shape_config_ocpus" {
+  default = 8
+}
+
+variable "dataflow_executor_shape_config_memory_in_gbs" {
+  default = 32
+}
+variable "dataflow_executor_shape_config_ocpus" {
+  default = 4
+}
+
+/********** Dataflow  Variables **********/
 
 /********** Devops Variables **********/
 variable "container_repository_is_public" {
@@ -355,6 +416,10 @@ variable "adminapi_buildspec" {
 
 variable "adminapi_authorizer_buildspec" {
   default = "/admin-api-authorizer/build_spec.yaml"
+}
+
+variable "dataflow_buildspec" {
+  default = "/healtheventanalysis/build_spec.yaml"
 }
 
 variable "dbsetup_buildspec" {
