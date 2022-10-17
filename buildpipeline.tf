@@ -89,3 +89,37 @@ resource "oci_devops_build_pipeline" "db_setup" {
 
 }
 
+resource "oci_devops_build_pipeline" "webui" {
+
+  #Required
+  project_id = oci_devops_project.test_project.id
+  depends_on = [oci_objectstorage_bucket.bucket_webui]
+  description  = "Build pipeline for webui service"
+  display_name = "${var.app_name}_webui_buildpipeline"
+  defined_tags    = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
+  build_pipeline_parameters {
+    items {
+      name          = "NAMESPACE_NAME"
+      default_value = data.oci_objectstorage_namespace.ns.namespace
+      description   = "Bucket namespace"
+    }
+    items {
+      name          = "BUCKET_NAME"
+      default_value = oci_objectstorage_bucket.bucket_webui.name
+      description   = "Bucket name"
+
+    }
+    items {
+      name = "REGION_NAME"
+      default_value = var.region
+      description = "OCI Region"
+    }
+    items {
+      name = "REACT_APP_API_GATEWAY_ENDPOINT"
+      default_value = oci_apigateway_gateway.api_gateway.hostname
+      description = "Gateway endpoint"
+    }
+  }
+
+}
+

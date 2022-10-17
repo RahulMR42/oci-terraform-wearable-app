@@ -307,6 +307,9 @@ variable "build_pipeline_stage_build_source_collection_items_name" {
 variable "notification_buildspec" {
   default = "/notification-service/build_spec.yaml"
 }
+variable "webui_buildspec" {
+  default = "/web-app/build_spec.yaml"
+}
 variable "tcpserver_buildspec" {
   default = "/tcp-server/build_spec.yaml"
 }
